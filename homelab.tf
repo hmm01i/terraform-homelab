@@ -1,7 +1,15 @@
 provider "aws" {
-  region     = "us-east-1"
-  profile    = "jsohl"
+  region     = "us-west-2"
 }
+
+terraform {
+  backend "s3" {
+    bucket = "jsohl-terraform-us-west-2"
+    key = "remotestate/homelab"
+    region = "us-west-2"
+  }
+}
+
 data "aws_ami" "centos7" {
   most_recent = true
   owners = ["679593333241"]
