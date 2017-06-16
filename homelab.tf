@@ -24,7 +24,7 @@ resource "aws_instance" "chef_server" {
   ami           = "${data.aws_ami.centos7.id}"
   instance_type = "t2.micro"
   key_name      = "atlas"
-  security_groups = ["allow_ssh"]
+  security_groups = ["default","allow_ssh"]
   tags {
     name = "chef_server"
   }
@@ -48,6 +48,12 @@ resource "aws_instance" "elastic_search" {
     from_port = 0
     to_port = 22
     protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
